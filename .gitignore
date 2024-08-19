@@ -13,7 +13,6 @@ env/
 env.bak/
 venv.bak/
 myenv
-myenv/
 
 # Django-related
 db.sqlite3
