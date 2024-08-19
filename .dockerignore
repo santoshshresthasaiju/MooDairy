@@ -1,0 +1,27 @@
+# Ignore Python bytecode files
+__pycache__
+*.pyc
+
+# Ignore environment variables file
+.env
+myenv/
+*/myenv
+
+# Ignore local database
+*.sqlite3
+
+# Ignore Django static files (optional, if you regenerate them)
+staticfiles/
+
+# Ignore media files (optional, if you don't want to include them in the image)
+media/
+
+# Ignore node_modules (if you're using Node.js or React in your project)
+node_modules/
+
+# Ignore the Dockerfile and docker-compose.yml (you may want to include these)
+Dockerfile
+docker-compose.yml
+
+# Ignore .git directory
+.git
