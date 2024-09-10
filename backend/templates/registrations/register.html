@@ -1,0 +1,64 @@
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+<body>
+    <section class="bg-cyan-400 min-h-screen flex items-center justify-center">
+        <div class="w-full max-w-lg bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Register</h1>
+            <form action="" method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.username.label_tag }}
+                    </label>
+                    {{ form.username|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                    <p class="text-red-500 text-sm mt-1">{{ form.username.errors }}</p>
+                </div>
+            
+                <div>
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.email.label_tag }}
+                    </label>
+                    {{ form.email|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                    <p class="text-red-500 text-sm mt-1">{{ form.email.errors }}</p>
+                </div>
+            
+                <div>
+                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.password1.label_tag }}
+                    </label>
+                    {{ form.password1|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                    <p class="text-red-500 text-sm mt-1">{{ form.password1.errors }}</p>
+                </div>
+            
+                <div>
+                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.password2.label_tag }}
+                    </label>
+                    {{ form.password2|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                    <p class="text-red-500 text-sm mt-1">{{ form.password2.errors }}</p>
+                </div>
+            
+                <div>
+                    <label for="{{ form.role.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.role.label_tag }}
+                    </label>
+                    {{ form.role|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                    <p class="text-red-500 text-sm mt-1">{{ form.role.errors }}</p>
+                </div>
+            
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
