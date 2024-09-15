@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm, CustomerUserChangeForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
+
+def landingpage_view(request):
+    return render(request, 'registrations/landingpage.html')
+
 def dashboard(request):
     return render(request, 'registrations/dashboard.html')
 
