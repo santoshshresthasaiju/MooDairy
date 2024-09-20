@@ -1,16 +1,8 @@
-{% load static %}
+{% extends "registrations/home.html" %}
 {% load widget_tweaks %}
-{% load static tailwind_tags %}
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link href="{% static 'css/main.css' %}" rel="stylesheet" />
-    {% tailwind_css %}
-  </head>
-  <body class="bg-gray-100">
+{% load static %}
+{% block contentblock %}
+{% include "registrations/navigation.html" %}
     <!-- Container -->
     <div class="flex flex-col md:flex-row min-h-screen w-full content-center justify-center bg-gray-200 py-10">
       <!-- Login component -->
@@ -18,6 +10,16 @@
         <!-- Login form -->
         <div class="flex flex-col content-center justify-center rounded-l-md bg-white p-6 md:w-1/2">
           <div class="w-full max-w-sm mx-auto">
+            <!-- To show success and error messages -->
+            {% if messages %}
+              <div class="space-y-4">
+                {% for message in messages %}
+                  <div class="p-4 border-l-4 {% if message.tags == 'error' %}bg-red-100 border-red-500 text-red-700{% elif message.tags == 'success' %}bg-green-100 border-green-500 text-green-700{% elif message.tags == 'warning' %}bg-yellow-100 border-yellow-500 text-yellow-700{% elif message.tags == 'info' %}bg-blue-100 border-blue-500 text-blue-700{% else %}bg-gray-100 border-gray-500 text-gray-700{% endif %} rounded-md shadow-md" id="message-alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
             <!-- Heading -->
             <h1 class="text-2xl font-semibold text-gray-800 text-center">Welcome back</h1>
             <p class="text-gray-400 text-center">Please enter your details</p>
@@ -75,6 +77,4 @@
         </div>
       </div>
     </div>
-  </body>
-</html>
-
+{% endblock contentblock %}
