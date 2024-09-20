@@ -4,11 +4,11 @@
 {% block contentblock %}
 {% include "registrations/navigation.html" %}
     <!-- Container -->
-    <div class="flex flex-col md:flex-row min-h-screen w-full content-center justify-center bg-gray-200 py-10">
+    <div class="flex flex-col md:flex-row min-h-screen w-full content-center justify-center bg-gray-400">
       <!-- Login component -->
       <div class="flex shadow-md">
         <!-- Login form -->
-        <div class="flex flex-col content-center justify-center rounded-l-md bg-white p-6 md:w-1/2">
+        <div class="flex flex-col content-center justify-center rounded-l-md bg-rose-200 p-6 md:w-1/2">
           <div class="w-full max-w-sm mx-auto">
             <!-- To show success and error messages -->
             {% if messages %}
@@ -29,21 +29,15 @@
               {% csrf_token %}
               <div class="mb-4">
                 <label for="id_username" class="block text-sm font-medium text-gray-700">Username:</label>
-                {{ form.username|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
-                {% if form.username.errors %}
-                  <p class="text-red-500 text-sm mt-1">{{ form.username.errors.0 }}</p>
-                {% endif %}
+                {{ form.username|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900" }}
               </div>
               <div class="mb-4">
                 <label for="id_password" class="block text-sm font-medium text-gray-700">Password:</label>
-                {{ form.password|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
-                {% if form.password.errors %}
-                  <p class="text-red-500 text-sm mt-1">{{ form.password.errors.0 }}</p>
-                {% endif %}
+                {{ form.password|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900" }}
               </div>
               <div class="mb-4">
                 <label for="id_role" class="block text-sm font-medium text-gray-700">Role:</label>
-                {{ form.role|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" }}
+                {{ form.role|add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900" }}
                 {% if form.role.errors %}
                   <p class="text-red-500 text-sm mt-1">{{ form.role.errors.0 }}</p>
                 {% endif %}
@@ -77,4 +71,5 @@
         </div>
       </div>
     </div>
+    {% include "registrations/footer.html" %}
 {% endblock contentblock %}

@@ -15,9 +15,11 @@ def register(request):
             form.save()
             messages.success(request, 'Account Created Successfully!')
             return redirect('registrations:login')
+        else:
+            messages.error(request, 'Invalid Data!!!')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registrations/register.html', {'form':form})
+    return render(request, 'registrations/signup.html', {'form':form})
 
 @login_required
 def update_user(request):
