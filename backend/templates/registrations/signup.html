@@ -25,6 +25,14 @@
           {{ form.email|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-700" }}
           <p class="text-red-500 text-sm mt-1">{{ form.email.errors }}</p>
       </div>
+
+      <div>
+        <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700">
+            {{ form.phone_number.label_tag }}
+        </label>
+        {{ form.phone_number|add_class:"mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-700" }}
+        <p class="text-red-500 text-sm mt-1">{{ form.phone_number.errors }}</p>
+    </div>
   
       <div>
           <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700">
