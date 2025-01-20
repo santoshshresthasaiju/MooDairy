@@ -146,7 +146,7 @@ def login_view(request):
 
 def redirect_user_based_on_role(user):
     if user.role == 'admin':
-        return redirect('dashboard:admin_dashboard')
+        return redirect('dashboard:dashboard')
     elif user.role == 'farmer':
         return redirect(reverse('dashboard:farmer_dashboard'))
     elif user.role == 'collector':
@@ -156,3 +156,4 @@ def redirect_user_based_on_role(user):
     else:
         return redirect('dashboard:default_dashboard')
     
+ 
