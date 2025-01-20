@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from registrations.models import CustomUser 
 
 # Create your views here.
 @login_required
@@ -24,3 +25,11 @@ def default_dashboard(request):
 
 def dashboard(request):
     return render(request, 'dashboard/dashboard.html')
+
+def user_list(request):
+    users = CustomUser.objects.all()
+    context ={
+        'users':users,
+    }
+    return render(request, 'dashboard/user_list.html', context)
+
