@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now, timedelta
-
+from moodairy.models import Dairy
 
 class CustomUser(AbstractUser):
     ROLE_CHOICES = (
@@ -12,7 +12,6 @@ class CustomUser(AbstractUser):
     )
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-
     def __str__(self):
         return self.username
 

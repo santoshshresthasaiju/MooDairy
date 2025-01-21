@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from moodairy.models import Dairy, DairyUser
 from registrations.models import CustomUser 
 
 # Create your views here.
@@ -27,9 +29,27 @@ def dashboard(request):
     return render(request, 'dashboard/dashboard.html')
 
 def user_list(request):
-    users = CustomUser.objects.all()
-    context ={
-        'users':users,
-    }
-    return render(request, 'dashboard/user_list.html', context)
-
+    try:
+        # Try to get the DairyUser object related to the current logged-in user
+        dairy_user = DairyUser.objects.get(dairy_user=request.user)
+        
+        # Get the dairy related to this DairyUser
+        user_dairy = dairy_user.dairy
+        
+        # Get all users associated with this dairy
+        users = CustomUser.objects.filter(dairy=user_dairy)
+        
+        context = {
+            'users': users,
+        }
+        return render(request, 'dashboard/user_list.html', context)
+    
+    except DairyUser.DoesNotExist:
+        # If no DairyUser entry exists for the logged-in user, show a warning
+        messages.warning(request, 'You are not assigned to a dairy. Please contact the admin.')
+        return render(request, 'dashboard/user_list.html', {'users': []})
+    
+    except Dairy.DoesNotExist:
+        # If no Dairy is assigned to the DairyUser, show a warning
+        messages.warning(request, 'No dairy assigned to your user.')
+        return render(request, 'dashboard/user_list.html', {'users': []})

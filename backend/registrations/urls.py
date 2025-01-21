@@ -9,6 +9,7 @@ urlpatterns = [
     path('register/',register , name='register'),
     path('update/<int:pk>/', update_user, name='update_user'),
     path('login/',login_view, name='login'),
+    path('logout', views.logoutuser, name="logout"),
     path('otp-verify/<int:user_id>/', otp_verify_view, name='otp-verify'),
     
     path('password-reset/', views.password_reset_request, name='password-reset'),

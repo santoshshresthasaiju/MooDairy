@@ -1,6 +1,6 @@
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect   
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .models import OTP, CustomUser
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm, CustomerUserChangeForm, CustomLoginForm
@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from .utils import generate_otp
 from django.contrib.auth import get_user_model
+from .models import Dairy
     
 User = get_user_model()
 
@@ -136,24 +137,33 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             messages.success(request, 'Login successful!')
-            return redirect_user_based_on_role(user)
+            # Check if the user has an assigned dairy
+            if user.dairy:
+                # If the user has a dairy assigned, proceed to the dashboard
+                return redirect('dashboard:dashboard')
+            else:
+                # If no dairy is assigned, show a warning message
+                messages.warning(request, 'No Dairy assigned to this user.')
         else:
             messages.error(request, 'Invalid username or password.') 
-            # return render(request, 'registrations/login.html', {'form':form})
     else:
         form = CustomLoginForm()
     return render(request, 'registrations/login.html', {'form':form})
 
-def redirect_user_based_on_role(user):
-    if user.role == 'admin':
-        return redirect('dashboard:dashboard')
-    elif user.role == 'farmer':
-        return redirect(reverse('dashboard:farmer_dashboard'))
-    elif user.role == 'collector':
-        return redirect('dashboard:collector_dashboard')
-    elif user.role == 'finance_manager':
-        return redirect('dashboard:finance_dashboard')
-    else:
-        return redirect('dashboard:default_dashboard')
+# def redirect_user_based_on_role(user):
+#     if user.role == 'admin':
+#         return redirect('dashboard:dashboard')
+#     elif user.role == 'farmer':
+#         return redirect(reverse('dashboard:farmer_dashboard'))
+#     elif user.role == 'collector':
+#         return redirect('dashboard:collector_dashboard')
+#     elif user.role == 'finance_manager':
+#         return redirect('dashboard:finance_dashboard')
+#     else:
+#         return redirect('dashboard:default_dashboard')
     
+#Logout
+def logoutuser(request):
+    logout(request)
+    return redirect('/')
  
