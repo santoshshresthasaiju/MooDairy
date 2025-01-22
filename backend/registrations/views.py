@@ -1,6 +1,7 @@
 from django.forms import ValidationError
 from django.shortcuts import get_object_or_404, render, redirect   
 from django.contrib.auth import login, logout
+from moodairy.models import DairyUser
 from .models import OTP, CustomUser
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm, CustomerUserChangeForm, CustomLoginForm
@@ -131,24 +132,28 @@ def update_user(request):
         
 def login_view(request):
     if request.method == 'POST':
-        
         form = CustomLoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
-            messages.success(request, 'Login successful!')
-            # Check if the user has an assigned dairy
-            if user.dairy:
-                # If the user has a dairy assigned, proceed to the dashboard
+            # Check if the user has an associated DairyUser
+            try:
+                dairy_user = DairyUser.objects.get(dairy_user=user)
+                # If the user is associated with a dairy, login and redirect to the dashboard
+                login(request, user)
+                messages.success(request, 'Login successful!')
                 return redirect('dashboard:dashboard')
-            else:
-                # If no dairy is assigned, show a warning message
+            except DairyUser.DoesNotExist:
+                # If no dairy is assigned, show a warning message and do not log in the user
                 messages.warning(request, 'No Dairy assigned to this user.')
+                # Optionally, you can log the user out if they were not assigned to any dairy
+                return redirect('registrations:login')  # Redirect back to the login page
+
         else:
-            messages.error(request, 'Invalid username or password.') 
+            messages.error(request, 'Invalid username or password.')
     else:
         form = CustomLoginForm()
-    return render(request, 'registrations/login.html', {'form':form})
+
+    return render(request, 'registrations/login.html', {'form': form})
 
 # def redirect_user_based_on_role(user):
 #     if user.role == 'admin':

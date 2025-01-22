@@ -1,12 +1,17 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from .models import CustomUser, OTP
+from .models import CustomUser, OTP, Role
 from registrations.utils import generate_otp, send_otp_email, send_otp_sms
 
 
 class CustomUserCreationForm(UserCreationForm):
-    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, required=True)
+    role = forms.ModelChoiceField(
+        queryset=Role.objects.all(),
+        required=True,
+        label="Role",
+        empty_label="Select Role"
+    )
     email = forms.EmailField(required=True)
     phone_number = forms.CharField(max_length=15, required=True)
     otp = forms.IntegerField(
@@ -45,7 +50,12 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomerUserChangeForm(UserChangeForm):
-    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, required=True)
+    role = forms.ModelChoiceField(
+        queryset=Role.objects.all(),
+        required=True,
+        label="Role",
+        empty_label="Select Role"
+    )
 
     class Meta:
         model = CustomUser
@@ -53,8 +63,11 @@ class CustomerUserChangeForm(UserChangeForm):
 
 
 class CustomLoginForm(AuthenticationForm):
-    role = forms.ChoiceField(
-        choices=CustomUser.ROLE_CHOICES, required=True, label="Role"
+    role = forms.ModelChoiceField(
+        queryset=Role.objects.all(),
+        required=True,
+        label="Role",
+        empty_label="Select Role"
     )
 
     def confirm_login_allowed(self, user):

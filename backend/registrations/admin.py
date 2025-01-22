@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser
+from .models import CustomUser, Role
 
 from django.contrib.auth.admin import UserAdmin
 
@@ -24,3 +24,4 @@ class CustomUserAdmin(UserAdmin):
         super().save_model(request, obj, form, change)
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Role)

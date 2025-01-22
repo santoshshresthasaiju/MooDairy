@@ -30,14 +30,12 @@ def dashboard(request):
 
 def user_list(request):
     try:
-        # Try to get the DairyUser object related to the current logged-in user
+        # Get the DairyUser object related to the logged-in user
         dairy_user = DairyUser.objects.get(dairy_user=request.user)
-        
         # Get the dairy related to this DairyUser
-        user_dairy = dairy_user.dairy
-        
-        # Get all users associated with this dairy
-        users = CustomUser.objects.filter(dairy=user_dairy)
+        user_dairy = dairy_user.dairy   
+        # Get all CustomUser objects that have an associated DairyUser with the same dairy
+        users = CustomUser.objects.filter(dairyuser__dairy=user_dairy)
         
         context = {
             'users': users,
