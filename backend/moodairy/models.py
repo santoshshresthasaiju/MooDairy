@@ -29,3 +29,27 @@ class Subscription(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     is_active = models.BooleanField(default=True)
+
+class Employee(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    ]
+    
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+    contact = models.CharField(max_length=15)
+    pan = models.CharField(max_length=20)
+    dob = models.DateField(null=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    job_title = models.CharField(max_length=100, null=True, blank=True)
+    salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    hire_date = models.DateField(null=True, blank=True)
+    department = models.CharField(max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
